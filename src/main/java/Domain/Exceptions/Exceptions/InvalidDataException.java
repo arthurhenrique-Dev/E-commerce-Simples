@@ -1,4 +1,4 @@
-package Domain.Exceptions;
+package Domain.Exceptions.Exceptions;
 
 public class InvalidDataException extends RuntimeException {
     public InvalidDataException(String message) {

@@ -1,6 +1,6 @@
 package Domain.ValueObjects;
 
-import Domain.Exceptions.InvalidDataException;
+import Domain.Exceptions.Exceptions.InvalidDataException;
 
 public record ValidText(String text) {
 

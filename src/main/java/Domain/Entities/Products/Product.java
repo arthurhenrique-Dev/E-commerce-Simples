@@ -18,11 +18,11 @@ public class Product {
     private Integer timesPurchased;
 
     private Quantity quantityTotal(List<Model> models) {
+        Integer totalQuantity = 0;
         for (Model model : models) {
-            Quantity totalQuantity;
-            totalQuantity = model.getQuantity();
+            totalQuantity += model.getQuantity().quantity();
         }
-        return totalQuantity;
+        return new Quantity(totalQuantity);
     }
 
     private Integer totalTimesViewed(List<Model> models) {
@@ -45,7 +45,26 @@ public class Product {
         return this.totalQuantity.quantity() > 0 ? AvailabilityStatus.IN_STOCK : AvailabilityStatus.OUT_OF_STOCK;
     }
 
-    public Product(Long id, ValidText name, ValidText description, List<Model> models, List<Review> reviews) {
+//    private List<String> photosConfig(List<String> photos, Integer idx) {
+//        if (idx != null) {
+//            return this.models.get(idx).getPhotos();
+//        } else {
+//            if (!photos.isEmpty()) return photos;
+//            if (!(this.models.stream().anyMatch(model -> model.getTimesPurchased() > 0))) {
+//                return this.models.getFirst().getPhotos();
+//            }
+//            return this.models.stream()
+//                    .max(Comparator.comparingInt(Model::getTimesPurchased))
+//                    .map(Model::getPhotos)
+//                    .orElseThrow(InvalidDataException::new);
+//        }
+//    }
+//
+//    private Price priceConfig(Price price, Integer idx) {
+//
+//    }
+
+    public Product(Long id, ValidText name, ValidText description, List<Model> models, List<Review> reviews, List<String> photo) {
         this.id = id;
         this.name = name;
         this.description = description;
