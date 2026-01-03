@@ -19,4 +19,6 @@ public class Master {
         this.phoneNumber = phoneNumber;
         this.role = Roles.MASTER;
     }
+
+
 }

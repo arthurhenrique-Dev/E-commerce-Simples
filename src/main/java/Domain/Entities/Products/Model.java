@@ -33,6 +33,7 @@ public class Model {
         this.name = name;
         this.price = checkDiscount(discountPercentage, price);
         this.quantity = quantity;
+        this.photos = photos;
         this.availability = checkAvailability();
         this.timesViewed = 0;
         this.timesPurchased = 0;

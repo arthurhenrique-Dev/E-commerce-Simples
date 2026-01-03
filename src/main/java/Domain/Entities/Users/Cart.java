@@ -14,8 +14,7 @@ public class Cart {
     private Price CalculateTotalPrice(List<CartItem> items){
         Price total = new Price(BigDecimal.ZERO);
         for(CartItem item : items){
-            Price itemPrice = item.price();
-
+            Price itemPrice = item.getPrice();
             total = total.add(itemPrice);
         }
         return total;

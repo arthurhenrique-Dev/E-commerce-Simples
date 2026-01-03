@@ -3,6 +3,7 @@ package Domain.Entities.Products;
 import Domain.ValueObjects.Quantity;
 import Domain.ValueObjects.ValidText;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class Product {
@@ -10,12 +11,14 @@ public class Product {
     private final Long id;
     private ValidText name;
     private ValidText description;
+    private Category category;
     private List<Model> models;
     private List<Review> reviews;
     private Quantity totalQuantity;
     private AvailabilityStatus availability;
     private Integer timesViewed;
     private Integer timesPurchased;
+    private LocalDateTime createdAt;
 
     private Quantity quantityTotal(List<Model> models) {
         Integer totalQuantity = 0;
@@ -64,7 +67,7 @@ public class Product {
 //
 //    }
 
-    public Product(Long id, ValidText name, ValidText description, List<Model> models, List<Review> reviews, List<String> photo) {
+    public Product(Long id, ValidText name, ValidText description, List<Model> models, List<Review> reviews, Category category, LocalDateTime createdAt) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -74,5 +77,63 @@ public class Product {
         this.timesPurchased = totalTimesPurchased(models);
         this.totalQuantity = quantityTotal(models);
         this.availability = checkAvailability();
+        this.createdAt = createdAt;
+        this.category = category;
+    }
+
+    public void setName(ValidText name) {
+        this.name = name;
+    }
+
+    public void setDescription(ValidText description) {
+        this.description = description;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public void setModels(List<Model> models) {
+        this.models = models;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public ValidText getName() {
+        return name;
+    }
+
+    public ValidText getDescription() {
+        return description;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public List<Model> getModels() {
+        return models;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public Quantity getTotalQuantity() {
+        return totalQuantity;
+    }
+
+    public AvailabilityStatus getAvailability() {
+        return availability;
+    }
+
+    public Integer getTimesViewed() {
+        return timesViewed;
+    }
+
+    public Integer getTimesPurchased() {
+        return timesPurchased;
     }
 }
