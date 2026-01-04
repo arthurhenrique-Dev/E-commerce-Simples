@@ -6,6 +6,7 @@ import Domain.ValueObjects.Password;
 public record DTOUpdatePasswordUser(
 
         Cpf cpf,
+        String token,
         Password password
 ) {
 }

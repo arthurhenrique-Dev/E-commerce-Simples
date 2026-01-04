@@ -14,10 +14,13 @@ public class Product {
     private Category category;
     private List<Model> models;
     private List<Review> reviews;
+    private Rating rating;
     private Quantity totalQuantity;
     private AvailabilityStatus availability;
     private Integer timesViewed;
     private Integer timesPurchased;
+    private Integer timesViewedInMonth;
+    private Integer timesPurchasedInMonth;
     private LocalDateTime createdAt;
 
     private Quantity quantityTotal(List<Model> models) {
@@ -44,9 +47,26 @@ public class Product {
         return totalTimesPurchased;
     }
 
+    private Integer totalTimesViewedInMonth(List<Model> models) {
+        Integer totalTimesViewedInMonth = 0;
+        for (Model model : models) {
+            totalTimesViewedInMonth += model.getTimesViewedInMonth();
+        }
+        return totalTimesViewedInMonth;
+    }
+
+    private Integer totalTimesPurchasedInMonth(List<Model> models) {
+        Integer totalTimesPurchasedInMonth = 0;
+        for (Model model : models) {
+            totalTimesPurchasedInMonth += model.getTimesPurchasedInMonth();
+        }
+        return totalTimesPurchasedInMonth;
+    }
+
     private AvailabilityStatus checkAvailability() {
         return this.totalQuantity.quantity() > 0 ? AvailabilityStatus.IN_STOCK : AvailabilityStatus.OUT_OF_STOCK;
     }
+
 
 //    private List<String> photosConfig(List<String> photos, Integer idx) {
 //        if (idx != null) {
@@ -76,6 +96,8 @@ public class Product {
         this.timesViewed = totalTimesViewed(models);
         this.timesPurchased = totalTimesPurchased(models);
         this.totalQuantity = quantityTotal(models);
+        this.timesViewedInMonth = totalTimesViewedInMonth(models);
+        this.timesPurchasedInMonth = totalTimesPurchasedInMonth(models);
         this.availability = checkAvailability();
         this.createdAt = createdAt;
         this.category = category;

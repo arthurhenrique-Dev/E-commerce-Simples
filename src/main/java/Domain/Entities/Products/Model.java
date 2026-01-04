@@ -10,7 +10,7 @@ import java.util.List;
 public class Model {
 
     private ValidText name;
-    private Price price;
+    private Price pricePerUnity;
     private Quantity quantity;
     private List<String> photos;
     private AvailabilityStatus availability;
@@ -24,14 +24,14 @@ public class Model {
         return this.quantity.quantity() > 0 ? AvailabilityStatus.IN_STOCK : AvailabilityStatus.OUT_OF_STOCK;
     }
 
-    private Price checkDiscount(BigDecimal discountPercentage, Price price) {
-        if (discountPercentage != null) return price.discount(discountPercentage);
-        else return price;
+    private Price checkDiscount(BigDecimal discountPercentage, Price pricePerUnity) {
+        if (discountPercentage != null) return pricePerUnity.discount(discountPercentage);
+        else return pricePerUnity;
     }
 
-    public Model(ValidText name, Price price, Quantity quantity, List<String> photos, BigDecimal discountPercentage) {
+    public Model(ValidText name, Price pricePerUnity, Quantity quantity, List<String> photos, BigDecimal discountPercentage) {
         this.name = name;
-        this.price = checkDiscount(discountPercentage, price);
+        this.pricePerUnity = checkDiscount(discountPercentage, pricePerUnity);
         this.quantity = quantity;
         this.photos = photos;
         this.availability = checkAvailability();
@@ -56,11 +56,11 @@ public class Model {
     }
 
     public Price getPrice() {
-        return price;
+        return pricePerUnity;
     }
 
-    public void setPrice(Price price) {
-        this.price = price;
+    public void setPrice(Price pricePerUnity) {
+        this.pricePerUnity = pricePerUnity;
     }
 
     public Quantity getQuantity() {

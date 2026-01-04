@@ -4,9 +4,7 @@ import Domain.Exceptions.Exceptions.InvalidDataException;
 
 import java.math.BigDecimal;
 
-public class Price {
-
-    private BigDecimal price;
+public record Price(BigDecimal price) {
 
     private BigDecimal validatePrice(BigDecimal price) {
         if (price.compareTo(BigDecimal.ZERO) <= 0) throw new InvalidDataException("Preço não pode ser menor que zero");

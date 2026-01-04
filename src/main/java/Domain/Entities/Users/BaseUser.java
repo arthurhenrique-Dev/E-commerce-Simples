@@ -45,6 +45,41 @@ public abstract class BaseUser {
         else throw new ValidationFailedException("Não é possível alterar a senha no momento");
     }
 
+    public void ValidateEmail(String token){
+        this.emailValidation = this.emailValidation.Validate(token);
+        this.status = Status.ON;
+    }
+
+    public EmailValidation getEmailValidation() {
+        return emailValidation;
+    }
+
+    public void Deactivate(){
+        this.status = Status.OFF;
+    }
+
+    public void Reactivate(){
+        this.status = Status.ON;
+    }
+
+    public PasswordUpdater getPasswordUpdater() {
+        return passwordUpdater;
+    }
+
+    public void UpdateUser(Email email, PhoneNumber phoneNumber, Address address){
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+    }
+
+    public void HireUser(){
+        this.role = Roles.ADMIN;
+    }
+
+    public void DismissAdmin(){
+        this.role = Roles.COMUM;
+    }
+
     public Cpf getCpf() {
         return cpf;
     }
@@ -69,9 +104,6 @@ public abstract class BaseUser {
         return address;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
-    }
 
     public PhoneNumber getPhoneNumber() {
         return phoneNumber;
@@ -85,23 +117,12 @@ public abstract class BaseUser {
         return cart;
     }
 
-    public void setCart(Cart cart) {
-        this.cart = cart;
-    }
-
     public Roles getRole() {
         return role;
-    }
-
-    public void setRole(Roles role) {
-        this.role = role;
     }
 
     public Status getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
-        this.status = status;
-    }
 }

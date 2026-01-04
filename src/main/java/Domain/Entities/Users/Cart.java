@@ -1,5 +1,6 @@
 package Domain.Entities.Users;
 
+import Domain.Exceptions.Exceptions.InvalidDataException;
 import Domain.ValueObjects.CartItem;
 import Domain.ValueObjects.Price;
 
@@ -20,14 +21,15 @@ public class Cart {
         return total;
     }
 
-    public List<CartItem> addCartItem(List<CartItem> items, CartItem item){
-        items.add(item);
-        return items;
+    public List<CartItem> addCartItem(CartItem item){
+        this.items.add(item);
+        return this.items;
     }
 
-    public List<CartItem> removeCartItem(List<CartItem> items, CartItem item){
-        items.remove(item);
-        return items;
+    public List<CartItem> removeCartItem(Integer idxItem){
+        if (idxItem < 1 || idxItem > this.items.size()) throw new InvalidDataException("Erro");
+        this.items.remove(this.items.get(idxItem - 1));
+        return this.items;
     }
 
     public Cart(List<CartItem> items) {

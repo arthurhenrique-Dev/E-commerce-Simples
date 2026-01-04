@@ -1,6 +1,5 @@
 package Domain.ValueObjects;
 
-import Domain.Exceptions.Exceptions.InvalidDataException;
 import Domain.Exceptions.Exceptions.ValidationFailedException;
 
 import java.util.UUID;
