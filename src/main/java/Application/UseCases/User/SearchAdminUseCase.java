@@ -4,7 +4,7 @@ import Application.DTOs.Users.DTOReturnUser;
 import Application.DTOs.Users.DTOSearchUser;
 import Application.Ports.Input.User.SearchAdminPort;
 import Application.Ports.Output.UserRepository;
-import Application.Mappers.Users.UserMapper;
+import Application.Mappers.UserMapper;
 import Domain.Entities.Users.User;
 
 import java.util.List;

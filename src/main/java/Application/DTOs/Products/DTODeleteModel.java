@@ -2,7 +2,7 @@ package Application.DTOs.Products;
 
 import java.util.UUID;
 
-public record DTOSpecificModel(
+public record DTODeleteModel(
 
         UUID id,
         Integer idxModel

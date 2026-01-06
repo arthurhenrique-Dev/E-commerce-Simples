@@ -2,7 +2,7 @@ package Application.UseCases.User;
 
 import Application.DTOs.Users.DTOReturnUser;
 import Application.DTOs.Users.DTOSearchUser;
-import Application.Mappers.Users.UserMapper;
+import Application.Mappers.UserMapper;
 import Application.Ports.Input.User.SearchUserPort;
 import Application.Ports.Output.UserRepository;
 import Domain.Entities.Users.User;

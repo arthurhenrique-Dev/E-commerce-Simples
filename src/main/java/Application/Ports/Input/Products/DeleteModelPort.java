@@ -1,8 +1,8 @@
 package Application.Ports.Input.Products;
 
-import Application.DTOs.Products.DTOSpecificModel;
+import Application.DTOs.Products.DTODeleteModel;
 
 public interface DeleteModelPort {
 
-    void deleteModel(DTOSpecificModel dtoSpecificModel);
+    void deleteModel(DTODeleteModel dtoDeleteModel);
 }

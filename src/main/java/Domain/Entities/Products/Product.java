@@ -97,6 +97,12 @@ public class Product {
         this.reviews.add(review);
     }
 
+    public void RegisterPurchase(Integer idxModel, Integer quantity){
+
+        Model model = this.models.get(idxModel - 1);
+        model.PurchaseModel(quantity);
+    }
+
 
 public Product(ValidText name, ValidText description, List<Model> models, Category category) {
     this.id = UUID.randomUUID();

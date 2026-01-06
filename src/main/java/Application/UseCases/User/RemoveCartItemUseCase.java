@@ -16,9 +16,9 @@ public class RemoveCartItemUseCase implements RemoveCartItemPort {
 
     @Override
     public void removeCartItem(DTORemoveCartItem dtoRemoveCartItem) {
-        User user = repository.getUserByCpf(dtoRemoveCartItem.cpf())
-                .orElseThrow(() -> new ValidationFailedException("Usuário fora de sessão"));
-        user.getCart().removeCartItem(dtoRemoveCartItem.idxItem());
-        repository.saveUser(user);
+//        User user = repository.getUserByCpf(dtoRemoveCartItem.cpf())
+//                .orElseThrow(() -> new ValidationFailedException("Usuário fora de sessão"));
+//        user.getCart().removeCartItem(dtoRemoveCartItem.idxItem());
+//        repository.saveUser(user);
     }
 }

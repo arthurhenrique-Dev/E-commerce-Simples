@@ -9,32 +9,40 @@ public class User {
 
     private final Cpf cpf;
     private final Name name;
-    private Password plaintext;
+    private Password password;
     private Email email;
     private Address address;
     private PhoneNumber phoneNumber;
-    private Cart cart;
+
     protected Role role;
     private Status status;
     private EmailValidation emailValidation;
     private PasswordUpdater passwordUpdater;
 
-    public Role getRole() {
-        return role;
-    }
-
-    public User(Cpf cpf, Name name, Password plaintext, Email email, Address address, PhoneNumber phoneNumber, Role role, Status status) {
+    public User(Cpf cpf, Name name, Password password, Email email, Address address, PhoneNumber phoneNumber, Role role) {
         this.cpf = cpf;
         this.name = name;
-        this.plaintext = plaintext;
+        this.password = password;
         this.email = email;
         this.address = address;
         this.phoneNumber = phoneNumber;
-        this.cart = new Cart(new ArrayList<>());
         this.role = role;
-        this.status = status;
+        this.status = Status.VALIDATING;
         this.emailValidation = EmailValidation.Start();
         this.passwordUpdater = null;
+    }
+
+    public User(Cpf cpf, Name name, Password password, Email email, Address address, PhoneNumber phoneNumber, Role role, Status status, EmailValidation emailValidation, PasswordUpdater passwordUpdater) {
+        this.cpf = cpf;
+        this.name = name;
+        this.password = password;
+        this.email = email;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.role = role;
+        this.status = status;
+        this.emailValidation = emailValidation;
+        this.passwordUpdater = passwordUpdater;
     }
 
     public void StartChangePassword(){
@@ -44,7 +52,7 @@ public class User {
 
     public void ChangePassword(String token, Password newPassword){
         if (this.passwordUpdater != null && this.passwordUpdater.CheckToken(token)) {
-            this.plaintext = newPassword;
+            this.password = newPassword;
             this.passwordUpdater = null;
         }
         else throw new ValidationFailedException("Não é possível alterar a senha no momento");
@@ -77,10 +85,17 @@ public class User {
         this.address = address;
     }
 
+    public Role getRole() {
+        return role;
+    }
+
     public void HireUser(){
         this.role = Role.ADMIN;
     }
 
+    public Password getPassword() {
+        return password;
+    }
     public void DismissAdmin(){
         this.role = Role.COMUM;
     }
@@ -90,7 +105,7 @@ public class User {
     }
 
     public Password getPlaintext() {
-        return plaintext;
+        return password;
     }
 
     public Name getName() {
@@ -116,10 +131,6 @@ public class User {
 
     public void setPhoneNumber(PhoneNumber phoneNumber) {
         this.phoneNumber = phoneNumber;
-    }
-
-    public Cart getCart() {
-        return cart;
     }
 
     public Status getStatus() {

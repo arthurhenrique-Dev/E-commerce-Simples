@@ -1,7 +1,8 @@
-package Application.Mappers.Users;
+package Application.Mappers;
 
 import Application.DTOs.Users.DTOReturnUser;
 import Application.DTOs.Users.DTOSaveUser;
+import Application.DTOs.Users.DTOSignInMaster;
 import Domain.Entities.Users.*;
 
 import java.util.List;
@@ -14,8 +15,7 @@ public class UserMapper {
             user.getName(),
             user.getEmail(),
             user.getPhoneNumber(),
-            user.getAddress(),
-            user.getCart()
+            user.getAddress()
         );
         return dtoReturnUser;
     }
@@ -27,8 +27,7 @@ public class UserMapper {
             dtoSaveUser.email(),
             dtoSaveUser.address(),
             dtoSaveUser.phoneNumber(),
-            Role.COMUM,
-            Status.VALIDATING
+            Role.COMUM
         );
         return user;
     }
@@ -41,11 +40,22 @@ public class UserMapper {
                 dtoSaveUser.email(),
                 dtoSaveUser.address(),
                 dtoSaveUser.phoneNumber(),
-                Role.ADMIN,
-                Status.VALIDATING
+                Role.ADMIN
         );
         return admin;
     }
+
+    public Master registerMaster(DTOSignInMaster dtoSignInMaster) {
+        Master master = new Master(
+                dtoSignInMaster.cpf(),
+                dtoSignInMaster.name(),
+                dtoSignInMaster.plainPassword(),
+                dtoSignInMaster.email(),
+                dtoSignInMaster.phoneNumber()
+        );
+        return master;
+    }
+
     public List<DTOReturnUser> toDTOReturnUser(List<User> users) {
         return users.stream().map(this::toDTOReturnUser).toList();
     }

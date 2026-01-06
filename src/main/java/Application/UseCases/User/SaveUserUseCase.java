@@ -1,7 +1,7 @@
 package Application.UseCases.User;
 
 import Application.DTOs.Users.DTOSaveUser;
-import Application.Mappers.Users.UserMapper;
+import Application.Mappers.UserMapper;
 import Application.Ports.Input.User.SaveUserPort;
 import Application.Ports.Output.EmailService;
 import Application.Ports.Output.UserRepository;

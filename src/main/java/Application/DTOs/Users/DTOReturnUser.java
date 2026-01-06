@@ -9,7 +9,6 @@ public record DTOReturnUser(
     Name name,
     Email email,
     PhoneNumber phoneNumber,
-    Address address,
-    Cart cart
+    Address address
 ) {
 }

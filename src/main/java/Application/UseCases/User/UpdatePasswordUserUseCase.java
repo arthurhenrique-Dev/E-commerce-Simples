@@ -3,7 +3,6 @@ package Application.UseCases.User;
 import Application.Ports.Input.User.UpdatePasswordUserPort;
 import Application.Ports.Output.UserRepository;
 import Domain.Entities.Users.User;
-import Domain.Exceptions.Exceptions.InvalidDataException;
 import Application.Ports.Output.EmailService;
 import Domain.Exceptions.Exceptions.UserNotFoundException;
 import Domain.ValueObjects.Cpf;

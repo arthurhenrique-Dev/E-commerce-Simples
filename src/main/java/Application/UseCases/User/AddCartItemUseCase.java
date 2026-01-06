@@ -5,7 +5,6 @@ import Application.Ports.Input.User.AddCartItemPort;
 import Application.Ports.Output.UserRepository;
 import Domain.Entities.Users.User;
 import Domain.Exceptions.Exceptions.UserNotFoundException;
-import Domain.Exceptions.Exceptions.ValidationFailedException;
 
 public class AddCartItemUseCase implements AddCartItemPort {
 
@@ -17,9 +16,9 @@ public class AddCartItemUseCase implements AddCartItemPort {
 
     @Override
     public void addCartItem(DTOAddCartItem dtoAddCartItem) {
-        User user = repository.getUserByCpf(dtoAddCartItem.cpf())
-                .orElseThrow(() -> new UserNotFoundException());
-        user.getCart().addCartItem(dtoAddCartItem.cartItem());
-        repository.saveUser(user);
+//        User user = repository.getUserByCpf(dtoAddCartItem.cpf())
+//                .orElseThrow(() -> new UserNotFoundException());
+//        user.getCart().addCartItem(dtoAddCartItem.cartItem());
+//        repository.saveUser(user);
     }
 }

@@ -4,7 +4,6 @@ import Application.DTOs.Users.DTOUpdateUser;
 import Application.Ports.Input.User.UpdateUserPort;
 import Application.Ports.Output.UserRepository;
 import Domain.Entities.Users.User;
-import Domain.Exceptions.Exceptions.InvalidDataException;
 import Domain.Exceptions.Exceptions.UserNotFoundException;
 
 public class UpdateUserUseCase implements UpdateUserPort {

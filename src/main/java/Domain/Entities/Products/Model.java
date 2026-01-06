@@ -41,6 +41,15 @@ public class Model {
         }
     }
 
+    public void PurchaseModel(Integer quantityPurchased){
+        if (quantityPurchased != null && quantityPurchased > 0 && quantityPurchased <= this.quantity.quantity()){
+            this.quantity = new Quantity(this.quantity.quantity() - quantityPurchased);
+            this.availability = checkAvailability();
+            this.timesPurchasedInMonth.repeat();
+            this.timesPurchased += quantityPurchased;
+        }
+    }
+
     public Model(ValidText name, Price pricePerUnity, Quantity quantity, Photos photos, BigDecimal discountPercentage) {
         this.name = name;
         this.pricePerUnity = checkDiscount(discountPercentage, pricePerUnity);
@@ -87,11 +96,6 @@ public class Model {
     public void incrementTimesViewed() {
         this.timesViewedInMonth.repeat();
         this.timesViewed++;
-    }
-
-    public void incrementTimesPurchased() {
-        this.timesPurchasedInMonth.repeat();
-        this.timesPurchased++;
     }
 
     public TimesInMonth getTimesViewedInMonth() {

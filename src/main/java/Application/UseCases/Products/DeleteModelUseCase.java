@@ -1,6 +1,6 @@
 package Application.UseCases.Products;
 
-import Application.DTOs.Products.DTOSpecificModel;
+import Application.DTOs.Products.DTODeleteModel;
 import Application.Ports.Input.Products.DeleteModelPort;
 import Application.Ports.Output.ProductRepository;
 import Domain.Entities.Products.Product;
@@ -15,7 +15,7 @@ public class DeleteModelUseCase implements DeleteModelPort {
     }
 
     @Override
-    public void deleteModel(DTOSpecificModel dtoSpecific) {
+    public void deleteModel(DTODeleteModel dtoSpecific) {
         Product product = repository.checkProductById(dtoSpecific.id())
                 .orElseThrow(() -> new ProductNotFoundException());
         product.DeleteModel(dtoSpecific.idxModel());
