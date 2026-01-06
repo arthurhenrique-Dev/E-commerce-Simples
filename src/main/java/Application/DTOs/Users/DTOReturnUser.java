@@ -5,10 +5,10 @@ import Domain.ValueObjects.*;
 
 public record DTOReturnUser(
 
-    Cpf cpf,
-    Name name,
-    Email email,
-    PhoneNumber phoneNumber,
-    Address address
+        Cpf cpf,
+        Name name,
+        Email email,
+        PhoneNumber phoneNumber,
+        Address address
 ) {
 }

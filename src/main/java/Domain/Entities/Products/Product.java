@@ -69,17 +69,17 @@ public class Product {
         return this.totalQuantity.quantity() > 0 ? AvailabilityStatus.IN_STOCK : AvailabilityStatus.OUT_OF_STOCK;
     }
 
-    public void DeleteProduct(){
+    public void DeleteProduct() {
         this.status = Status.OFF;
     }
 
-    public void UpdateProduct(Integer idxModel, ValidText name, ValidText modelName, Price price, Quantity quantity, Photos photos, BigDecimal discountPercentage){
+    public void UpdateProduct(Integer idxModel, ValidText name, ValidText modelName, Price price, Quantity quantity, Photos photos, BigDecimal discountPercentage) {
         if (!name.text().trim().isEmpty() || name != null) this.name = name;
         if (idxModel != null && idxModel > 0 && idxModel <= this.models.size())
             this.models.get(idxModel - 1).UpdateModel(modelName, price, quantity, photos, discountPercentage);
     }
 
-    public void newModel(ValidText name, Price price, Quantity quantity, Photos photos, BigDecimal DiscountPercentage){
+    public void newModel(ValidText name, Price price, Quantity quantity, Photos photos, BigDecimal DiscountPercentage) {
         Model newModel = new Model(
                 name,
                 price,
@@ -89,7 +89,7 @@ public class Product {
         this.models.add(newModel);
     }
 
-    public void DeleteModel(Integer idxModel){
+    public void DeleteModel(Integer idxModel) {
         if (idxModel != null && idxModel >= 0 && idxModel <= this.models.size()) this.models.remove(idxModel - 1);
     }
 
@@ -97,52 +97,104 @@ public class Product {
         this.reviews.add(review);
     }
 
-    public void RegisterPurchase(Integer idxModel, Integer quantity){
+    public void RegisterPurchase(Integer idxModel, Integer quantity) {
 
         Model model = this.models.get(idxModel - 1);
         model.PurchaseModel(quantity);
     }
 
 
-public Product(ValidText name, ValidText description, List<Model> models, Category category) {
-    this.id = UUID.randomUUID();
-    this.name = name;
-    this.description = description;
-    this.models = models;
-    this.reviews = new ArrayList<>();
-    this.timesViewed = totalTimesViewed(models);
-    this.timesPurchased = totalTimesPurchased(models);
-    this.totalQuantity = quantityTotal(models);
-    this.timesViewedInMonth = totalTimesViewedInMonth(models);
-    this.timesPurchasedInMonth = totalTimesPurchasedInMonth(models);
-    this.availability = checkAvailability();
-    this.createdAt = LocalDateTime.now();
-    this.category = category;
-    this.status = Status.ON;
-}
+    public Product(ValidText name, ValidText description, List<Model> models, Category category) {
+        this.id = UUID.randomUUID();
+        this.name = name;
+        this.description = description;
+        this.models = models;
+        this.reviews = new ArrayList<>();
+        this.timesViewed = totalTimesViewed(models);
+        this.timesPurchased = totalTimesPurchased(models);
+        this.totalQuantity = quantityTotal(models);
+        this.timesViewedInMonth = totalTimesViewedInMonth(models);
+        this.timesPurchasedInMonth = totalTimesPurchasedInMonth(models);
+        this.availability = checkAvailability();
+        this.createdAt = LocalDateTime.now();
+        this.category = category;
+        this.status = Status.ON;
+    }
 
-public void setName(ValidText name) {
-    this.name = name;
-}
+    public Product(UUID id, ValidText name, ValidText description, Category category, List<Model> models, List<Review> reviews, Quantity totalQuantity, AvailabilityStatus availability, Integer timesViewed, Integer timesPurchased, Integer timesViewedInMonth, Integer timesPurchasedInMonth, LocalDateTime createdAt, Status status) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.category = category;
+        this.models = models;
+        this.reviews = reviews;
+        this.totalQuantity = totalQuantity;
+        this.availability = availability;
+        this.timesViewed = timesViewed;
+        this.timesPurchased = timesPurchased;
+        this.timesViewedInMonth = timesViewedInMonth;
+        this.timesPurchasedInMonth = timesPurchasedInMonth;
+        this.createdAt = createdAt;
+        this.status = status;
+    }
 
-public UUID getId() {
-    return id;
-}
+    public void setName(ValidText name) {
+        this.name = name;
+    }
 
-public ValidText getName() {
-    return name;
-}
+    public UUID getId() {
+        return id;
+    }
 
-public ValidText getDescription() {
-    return description;
-}
+    public ValidText getName() {
+        return name;
+    }
 
-public Category getCategory() {
-    return category;
-}
+    public ValidText getDescription() {
+        return description;
+    }
 
-public List<Model> getModels() {
-    return models;
-}
+    public Category getCategory() {
+        return category;
+    }
 
+    public List<Model> getModels() {
+        return models;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public Quantity getTotalQuantity() {
+        return totalQuantity;
+    }
+
+    public AvailabilityStatus getAvailability() {
+        return availability;
+    }
+
+    public Integer getTimesViewed() {
+        return timesViewed;
+    }
+
+    public Integer getTimesPurchased() {
+        return timesPurchased;
+    }
+
+    public Integer getTimesViewedInMonth() {
+        return timesViewedInMonth;
+    }
+
+    public Integer getTimesPurchasedInMonth() {
+        return timesPurchasedInMonth;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
 }

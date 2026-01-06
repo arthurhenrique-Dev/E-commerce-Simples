@@ -2,7 +2,7 @@ package Domain.ValueObjects;
 
 import Domain.Exceptions.Exceptions.InvalidDataException;
 
-public record Cpf (String cpf) {
+public record Cpf(String cpf) {
 
     private boolean Validar(String cpf) {
         if (cpf == null || !cpf.matches("\\d{11}")) {

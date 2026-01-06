@@ -10,7 +10,10 @@ import java.util.UUID;
 public interface ProductRepository {
 
     void saveProduct(Product product);
+
     List<Product> adminSearchProducts(DTOSearchProduct dtoSearchProduct);
+
     List<Product> searchProducts(DTOSearchProduct dtoSearchProduct);
+
     Optional<Product> checkProductById(UUID id);
 }

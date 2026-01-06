@@ -45,20 +45,19 @@ public class User {
         this.passwordUpdater = passwordUpdater;
     }
 
-    public void StartChangePassword(){
+    public void StartChangePassword() {
         if (this.emailValidation.validated()) this.passwordUpdater = PasswordUpdater.Start();
         else throw new ValidationFailedException("Necessário validar o email primeiro");
     }
 
-    public void ChangePassword(String token, Password newPassword){
+    public void ChangePassword(String token, Password newPassword) {
         if (this.passwordUpdater != null && this.passwordUpdater.CheckToken(token)) {
             this.password = newPassword;
             this.passwordUpdater = null;
-        }
-        else throw new ValidationFailedException("Não é possível alterar a senha no momento");
+        } else throw new ValidationFailedException("Não é possível alterar a senha no momento");
     }
 
-    public void ValidateEmail(String token){
+    public void ValidateEmail(String token) {
         this.emailValidation = this.emailValidation.Validate(token);
         this.status = Status.ON;
     }
@@ -67,11 +66,11 @@ public class User {
         return emailValidation;
     }
 
-    public void Deactivate(){
+    public void Deactivate() {
         this.status = Status.OFF;
     }
 
-    public void Reactivate(){
+    public void Reactivate() {
         this.status = Status.ON;
     }
 
@@ -79,7 +78,7 @@ public class User {
         return passwordUpdater;
     }
 
-    public void UpdateUser(Email email, PhoneNumber phoneNumber, Address address){
+    public void UpdateUser(Email email, PhoneNumber phoneNumber, Address address) {
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.address = address;
@@ -89,14 +88,15 @@ public class User {
         return role;
     }
 
-    public void HireUser(){
+    public void HireUser() {
         this.role = Role.ADMIN;
     }
 
     public Password getPassword() {
         return password;
     }
-    public void DismissAdmin(){
+
+    public void DismissAdmin() {
         this.role = Role.COMUM;
     }
 

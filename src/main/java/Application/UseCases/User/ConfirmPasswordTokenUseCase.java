@@ -16,7 +16,7 @@ public class ConfirmPasswordTokenUseCase implements ConfirmPasswordTokenPort {
     public void confirmToken(DTOUpdatePasswordUser dtoUpdatePasswordUser) {
         User user = repository.getUserByCpf(dtoUpdatePasswordUser.cpf())
                 .orElseThrow(() -> new ValidationFailedException());
-        if (user.getPasswordUpdater().expirationDate().isBefore(LocalDateTime.now())){
+        if (user.getPasswordUpdater().expirationDate().isBefore(LocalDateTime.now())) {
             user.getPasswordUpdater().Stop();
             repository.saveUser(user);
             throw new ValidationFailedException("Token expirado");

@@ -24,7 +24,7 @@ public class AddMasterUseCase implements AddMasterPort {
     @Override
     public void saveMaster(DTOSignInMaster master) {
         Optional existingMaster = repository.findMasterByCpf(master.cpf());
-        if (existingMaster.isEmpty()){
+        if (existingMaster.isEmpty()) {
             repository.saveMaster(mapper.registerMaster(master));
         } else throw new InvalidDataException("Usuario existente");
     }

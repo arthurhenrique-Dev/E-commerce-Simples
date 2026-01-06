@@ -24,7 +24,6 @@ public class DeleteUserUseCase implements DeleteUserPort {
         if (existingUser.getStatus() == Status.ON) {
             existingUser.Deactivate();
             repository.saveUser(existingUser);
-        }
-        else throw new InvalidDataException("Usuário já inativo");
+        } else throw new InvalidDataException("Usuário já inativo");
     }
 }

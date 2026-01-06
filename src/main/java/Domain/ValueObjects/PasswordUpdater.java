@@ -20,8 +20,7 @@ public record PasswordUpdater(
     public boolean CheckToken(String token) {
         if (token.equals(this.token) && LocalDateTime.now().isBefore(this.expirationDate)) {
             return true;
-        }
-        else throw new ValidationFailedException();
+        } else throw new ValidationFailedException();
     }
 
     public PasswordUpdater Stop() {

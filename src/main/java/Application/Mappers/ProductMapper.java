@@ -10,11 +10,11 @@ public class ProductMapper {
 
     Model modelCreator(DTOModel dtoModel) {
         Model model = new Model(
-        dtoModel.name(),
-        dtoModel.price(),
-        dtoModel.quantity(),
-        dtoModel.photos(),
-        dtoModel.DiscountPercentage()
+                dtoModel.name(),
+                dtoModel.price(),
+                dtoModel.quantity(),
+                dtoModel.photos(),
+                dtoModel.DiscountPercentage()
         );
         return model;
     }
@@ -22,15 +22,15 @@ public class ProductMapper {
     public Product toRegister(DTOSaveProduct dtoSaveProduct) {
 
         Product product = new Product(
-            dtoSaveProduct.name(),
-            dtoSaveProduct.description(),
-            dtoSaveProduct.models().stream().map(this::modelCreator).toList(),
-            dtoSaveProduct.category()
+                dtoSaveProduct.name(),
+                dtoSaveProduct.description(),
+                dtoSaveProduct.models().stream().map(this::modelCreator).toList(),
+                dtoSaveProduct.category()
         );
         return product;
     }
 
-    public DTOReturnNormalProduct toReturn(Product product){
+    public DTOReturnNormalProduct toReturn(Product product) {
         DTOReturnNormalProduct returnProduct = new DTOReturnNormalProduct(
                 product.getId(),
                 product.getName(),

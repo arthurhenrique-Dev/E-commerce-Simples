@@ -7,10 +7,12 @@ import Infra.Persistence.SQL.Models.MasterEntity;
 import Infra.Persistence.SQL.Models.UserEntity;
 import Infra.Security.Service.CryptographyService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Component;
 
+@Component
 public class Mapper {
 
-    public UserEntity toDbModel(User user){
+    public UserEntity toDbModel(User user) {
 
         String cpfEncrypt = CryptographyService.encrypt(user.getCpf().cpf().toString());
         String nameEncrypt = CryptographyService.encrypt(user.getName().name().toString());
@@ -47,7 +49,8 @@ public class Mapper {
         );
         return userEntity;
     }
-    public User toDomain(UserEntity entity){
+
+    public User toDomain(UserEntity entity) {
 
         Cpf cpfDecrypt = new Cpf(CryptographyService.decrypt(entity.getCpf().toString()));
         Name nameDecrypt = new Name(CryptographyService.decrypt(entity.getName().toString()));
@@ -61,34 +64,34 @@ public class Mapper {
         String complementoDecrypt = CryptographyService.decrypt(entity.getComplemento().toString());
         ValidText numeroDecrypt = new ValidText(CryptographyService.decrypt(entity.getNumero().toString()));
         Address addressDecrypt = new Address(
-            cepDecrypt,
-            ruaDecrypt,
-            bairroDecrypt,
-            cidadeDecrypt,
-            estadoDecrypt,
-            complementoDecrypt,
-            numeroDecrypt
+                cepDecrypt,
+                ruaDecrypt,
+                bairroDecrypt,
+                cidadeDecrypt,
+                estadoDecrypt,
+                complementoDecrypt,
+                numeroDecrypt
         );
         PhoneNumber phoneNumberDecrypt = new PhoneNumber(CryptographyService.decrypt(entity.getPhoneNumber().toString()));
         EmailValidation emailValidationDecrypt = new EmailValidation(entity.getTokenEmail(), entity.isValidated());
         PasswordUpdater passwordUpdaterDecrypt = new PasswordUpdater(entity.getTokenPassword(), entity.getExpirationDate());
 
         User user = new User(
-            cpfDecrypt,
-            nameDecrypt,
-            passwordEncrypted,
-            emailDecrypt,
-            addressDecrypt,
-            phoneNumberDecrypt,
-            entity.getRole(),
-            entity.getStatus(),
-            emailValidationDecrypt,
-            passwordUpdaterDecrypt
+                cpfDecrypt,
+                nameDecrypt,
+                passwordEncrypted,
+                emailDecrypt,
+                addressDecrypt,
+                phoneNumberDecrypt,
+                entity.getRole(),
+                entity.getStatus(),
+                emailValidationDecrypt,
+                passwordUpdaterDecrypt
         );
         return user;
     }
 
-    public MasterEntity masterToEntity(Master master){
+    public MasterEntity masterToEntity(Master master) {
 
         String cpfEncrypt = CryptographyService.encrypt(master.getCpf().toString());
         String nameEncrypt = CryptographyService.encrypt(master.getName().toString());
@@ -96,18 +99,18 @@ public class Mapper {
         String emailEncrypt = CryptographyService.encrypt(master.getEmail().toString());
         String phoneNumberEncrypt = CryptographyService.encrypt(master.getPhoneNumber().toString());
         MasterEntity masterEntity = new MasterEntity(
-            cpfEncrypt,
-            nameEncrypt,
-            passwordEncrypt,
-            emailEncrypt,
-            phoneNumberEncrypt,
-            master.getRole(),
-            master.getStatus()
+                cpfEncrypt,
+                nameEncrypt,
+                passwordEncrypt,
+                emailEncrypt,
+                phoneNumberEncrypt,
+                master.getRole(),
+                master.getStatus()
         );
         return masterEntity;
     }
 
-    public Master masterToDomain(MasterEntity masterEntity){
+    public Master masterToDomain(MasterEntity masterEntity) {
 
         Cpf cpfDecrypt = new Cpf(CryptographyService.decrypt(masterEntity.getCpf().toString()));
         Name nameDecrypt = new Name(CryptographyService.decrypt(masterEntity.getName().toString()));

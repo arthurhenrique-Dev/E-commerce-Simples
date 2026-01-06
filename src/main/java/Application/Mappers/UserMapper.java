@@ -11,23 +11,24 @@ public class UserMapper {
 
     public DTOReturnUser toDTOReturnUser(User user) {
         DTOReturnUser dtoReturnUser = new DTOReturnUser(
-            user.getCpf(),
-            user.getName(),
-            user.getEmail(),
-            user.getPhoneNumber(),
-            user.getAddress()
+                user.getCpf(),
+                user.getName(),
+                user.getEmail(),
+                user.getPhoneNumber(),
+                user.getAddress()
         );
         return dtoReturnUser;
     }
+
     public User registerUser(DTOSaveUser dtoSaveUser) {
         User user = new User(
-            dtoSaveUser.cpf(),
-            dtoSaveUser.name(),
-            dtoSaveUser.password(),
-            dtoSaveUser.email(),
-            dtoSaveUser.address(),
-            dtoSaveUser.phoneNumber(),
-            Role.COMUM
+                dtoSaveUser.cpf(),
+                dtoSaveUser.name(),
+                dtoSaveUser.password(),
+                dtoSaveUser.email(),
+                dtoSaveUser.address(),
+                dtoSaveUser.phoneNumber(),
+                Role.COMUM
         );
         return user;
     }

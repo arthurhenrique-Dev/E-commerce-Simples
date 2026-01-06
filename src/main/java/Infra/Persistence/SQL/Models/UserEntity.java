@@ -17,7 +17,8 @@ import java.util.List;
 
 @Entity
 @Table(name = "users")
-@Getter @Setter
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserEntity implements UserDetails {
@@ -35,7 +36,7 @@ public class UserEntity implements UserDetails {
     private String complemento;
     private String numero;
     private String phoneNumber;
-//    @Embedded
+    //    @Embedded
 //    private Cart cart;
     @Enumerated(EnumType.STRING)
     private Role role;

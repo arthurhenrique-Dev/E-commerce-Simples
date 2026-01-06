@@ -23,7 +23,6 @@ public class ReactivateUserUseCase implements ReactivateUserPort {
         if (user.getStatus() == Status.OFF) {
             user.Reactivate();
             repository.saveUser(user);
-        }
-        else throw new InvalidDataException("Usuario não necessita de reativação");
+        } else throw new InvalidDataException("Usuario não necessita de reativação");
     }
 }

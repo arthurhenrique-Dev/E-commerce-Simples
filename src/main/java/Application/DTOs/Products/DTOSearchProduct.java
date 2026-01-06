@@ -8,8 +8,7 @@ import java.util.UUID;
 
 public record DTOSearchProduct(
 
-        ValidText name,
-        UUID id,
+        String searchTerm,
         Integer idxModel,
         Category category,
         Price price,

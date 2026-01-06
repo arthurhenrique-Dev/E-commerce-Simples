@@ -1,18 +1,16 @@
 package Domain.ValueObjects;
 
-public class CartItem{
+public class CartItem {
 
-        private Long id;
-        private ValidText name;
-        private Quantity quantity;
-        private Integer indexModel;
-        private Price price;
+    private Integer id;
+    private ValidText name;
+    private Quantity quantity;
+    private Price price;
 
-    public CartItem(Long id, ValidText name, Quantity quantity, Integer indexModel, Price price) {
+    public CartItem(Integer id, ValidText name, Quantity quantity, Price price) {
         this.id = id;
         this.name = name;
         this.quantity = quantity;
-        this.indexModel = indexModel;
         this.price = price;
     }
 
@@ -20,7 +18,7 @@ public class CartItem{
         this.quantity = quantity;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 

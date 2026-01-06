@@ -27,22 +27,22 @@ public class Model {
         else return pricePerUnity;
     }
 
-    public void UpdateModel(ValidText modelName, Price price, Quantity quantity, Photos photos, BigDecimal discountPercentage){
+    public void UpdateModel(ValidText modelName, Price price, Quantity quantity, Photos photos, BigDecimal discountPercentage) {
         if (modelName != null || modelName.text().trim().isEmpty()) this.name = modelName;
         if (price != null && price.price().doubleValue() > 0) this.pricePerUnity = price;
-        if (quantity != null && quantity.quantity() >= 0){
+        if (quantity != null && quantity.quantity() >= 0) {
             this.quantity = quantity;
             this.checkAvailability();
         }
         if (photos != null && !photos.photos().isEmpty()) this.photos = photos;
-        if (discountPercentage != null){
+        if (discountPercentage != null) {
             this.pricePerUnity.discount(discountPercentage);
             this.discountPercentage = discountPercentage;
         }
     }
 
-    public void PurchaseModel(Integer quantityPurchased){
-        if (quantityPurchased != null && quantityPurchased > 0 && quantityPurchased <= this.quantity.quantity()){
+    public void PurchaseModel(Integer quantityPurchased) {
+        if (quantityPurchased != null && quantityPurchased > 0 && quantityPurchased <= this.quantity.quantity()) {
             this.quantity = new Quantity(this.quantity.quantity() - quantityPurchased);
             this.availability = checkAvailability();
             this.timesPurchasedInMonth.repeat();

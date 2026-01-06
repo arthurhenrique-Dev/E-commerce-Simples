@@ -24,10 +24,11 @@ public class CryptographyService {
 
             return Base64.getEncoder().encodeToString(encrypted);
 
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new ProcessingErrorException();
         }
     }
+
     public static String decrypt(String ciphertext) throws ProcessingErrorException {
         try {
             SecretKeySpec secretKey = new SecretKeySpec(key.getBytes(), ALGORITHM);
@@ -39,7 +40,7 @@ public class CryptographyService {
 
             return new String(decrypted);
 
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new ProcessingErrorException();
         }
     }
