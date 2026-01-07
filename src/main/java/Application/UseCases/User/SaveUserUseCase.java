@@ -6,6 +6,7 @@ import Application.Ports.Input.User.SaveUserPort;
 import Application.Ports.Output.CartRepository;
 import Application.Ports.Output.EmailService;
 import Application.Ports.Output.UserRepository;
+import Domain.Entities.Users.Cart;
 import Domain.Entities.Users.User;
 import Domain.Exceptions.Exceptions.ValidationFailedException;
 
@@ -30,7 +31,7 @@ public class SaveUserUseCase implements SaveUserPort {
         Optional<User> existingUser = repository.getUserByCpf(dtoSaveUser.cpf());
         if (existingUser.isPresent()) throw new ValidationFailedException("Usuario existente");
         User readyToSave = mapper.registerUser(dtoSaveUser);
-        cartRepository.saveCart(new);
+        cartRepository.saveCart(new Cart(dtoSaveUser.cpf()));
         repository.saveUser(readyToSave);
         service.ValidateEmail(readyToSave.getEmail(), readyToSave.getEmailValidation().token());
     }

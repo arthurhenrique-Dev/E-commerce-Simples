@@ -7,7 +7,7 @@ public record DTOSignInMaster(
         Cpf cpf,
         Name name,
         Password plainPassword,
-        Email email,
+        EmailVO email,
         PhoneNumber phoneNumber
 ) {
 }

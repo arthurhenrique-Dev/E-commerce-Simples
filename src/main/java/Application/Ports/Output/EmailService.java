@@ -1,10 +1,10 @@
 package Application.Ports.Output;
 
-import Domain.ValueObjects.Email;
+import Domain.ValueObjects.EmailVO;
 
 public interface EmailService {
 
-    boolean ValidateEmail(Email email, String sendToken);
+    void ValidateEmail(EmailVO email, String sendToken);
 
-    boolean ChangePassword(Email email, String sendToken);
+    void ChangePassword(EmailVO email, String sendToken);
 }

@@ -3,23 +3,20 @@ package Domain.Entities.Users;
 import Domain.Exceptions.Exceptions.ValidationFailedException;
 import Domain.ValueObjects.*;
 
-import java.util.ArrayList;
-
 public class User {
 
     private final Cpf cpf;
     private final Name name;
     private Password password;
-    private Email email;
+    private EmailVO email;
     private Address address;
     private PhoneNumber phoneNumber;
-
     protected Role role;
     private Status status;
     private EmailValidation emailValidation;
     private PasswordUpdater passwordUpdater;
 
-    public User(Cpf cpf, Name name, Password password, Email email, Address address, PhoneNumber phoneNumber, Role role) {
+    public User(Cpf cpf, Name name, Password password, EmailVO email, Address address, PhoneNumber phoneNumber, Role role) {
         this.cpf = cpf;
         this.name = name;
         this.password = password;
@@ -32,7 +29,7 @@ public class User {
         this.passwordUpdater = null;
     }
 
-    public User(Cpf cpf, Name name, Password password, Email email, Address address, PhoneNumber phoneNumber, Role role, Status status, EmailValidation emailValidation, PasswordUpdater passwordUpdater) {
+    public User(Cpf cpf, Name name, Password password, EmailVO email, Address address, PhoneNumber phoneNumber, Role role, Status status, EmailValidation emailValidation, PasswordUpdater passwordUpdater) {
         this.cpf = cpf;
         this.name = name;
         this.password = password;
@@ -78,7 +75,7 @@ public class User {
         return passwordUpdater;
     }
 
-    public void UpdateUser(Email email, PhoneNumber phoneNumber, Address address) {
+    public void UpdateUser(EmailVO email, PhoneNumber phoneNumber, Address address) {
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.address = address;
@@ -112,11 +109,11 @@ public class User {
         return name;
     }
 
-    public Email getEmail() {
+    public EmailVO getEmail() {
         return email;
     }
 
-    public void setEmail(Email email) {
+    public void setEmail(EmailVO email) {
         this.email = email;
     }
 

@@ -1,13 +1,22 @@
 package Application.Mappers;
 
+import Application.DTOs.Users.DTOReturnCepService;
 import Application.DTOs.Users.DTOReturnUser;
 import Application.DTOs.Users.DTOSaveUser;
 import Application.DTOs.Users.DTOSignInMaster;
+import Application.Ports.Output.CepService;
 import Domain.Entities.Users.*;
+import Domain.ValueObjects.Address;
 
 import java.util.List;
 
 public class UserMapper {
+
+    private final CepService service;
+
+    public UserMapper(CepService service) {
+        this.service = service;
+    }
 
     public DTOReturnUser toDTOReturnUser(User user) {
         DTOReturnUser dtoReturnUser = new DTOReturnUser(
@@ -21,12 +30,23 @@ public class UserMapper {
     }
 
     public User registerUser(DTOSaveUser dtoSaveUser) {
+        DTOReturnCepService dtoReturnCepService = service.getAddressByCep(dtoSaveUser.address().cep());
+        Address address = new Address(
+                dtoSaveUser.address().cep(),
+                dtoReturnCepService.rua(),
+                dtoReturnCepService.bairro(),
+                dtoReturnCepService.cidade(),
+                dtoReturnCepService.estado(),
+                dtoSaveUser.address().complemento(),
+                dtoSaveUser.address().numero()
+        );
+
         User user = new User(
                 dtoSaveUser.cpf(),
                 dtoSaveUser.name(),
                 dtoSaveUser.password(),
                 dtoSaveUser.email(),
-                dtoSaveUser.address(),
+                address,
                 dtoSaveUser.phoneNumber(),
                 Role.COMUM
         );
@@ -34,12 +54,23 @@ public class UserMapper {
     }
 
     public User registerAdmin(DTOSaveUser dtoSaveUser) {
+        DTOReturnCepService dtoReturnCepService = service.getAddressByCep(dtoSaveUser.address().cep());
+        Address address = new Address(
+                dtoSaveUser.address().cep(),
+                dtoReturnCepService.rua(),
+                dtoReturnCepService.bairro(),
+                dtoReturnCepService.cidade(),
+                dtoReturnCepService.estado(),
+                dtoSaveUser.address().complemento(),
+                dtoSaveUser.address().numero()
+        );
+
         User admin = new User(
                 dtoSaveUser.cpf(),
                 dtoSaveUser.name(),
                 dtoSaveUser.password(),
                 dtoSaveUser.email(),
-                dtoSaveUser.address(),
+                address,
                 dtoSaveUser.phoneNumber(),
                 Role.ADMIN
         );

@@ -21,7 +21,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserEntity implements UserDetails {
+public class UserEntity {
 
     @Id
     private String cpf;
@@ -47,22 +47,5 @@ public class UserEntity implements UserDetails {
     private String tokenPassword;
     private LocalDateTime expirationDate;
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        if (this.role.equals(Role.ADMIN)) {
-            return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_COMUM"));
-        } else {
-            return List.of(new SimpleGrantedAuthority("ROLE_USER"));
-        }
-    }
 
-    @Override
-    public String getUsername() {
-        return cpf;
-    }
-
-    @Override
-    public String getPassword() {
-        return password;
-    }
 }

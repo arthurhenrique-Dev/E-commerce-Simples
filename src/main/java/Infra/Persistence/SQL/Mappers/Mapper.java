@@ -5,6 +5,7 @@ import Domain.Entities.Users.User;
 import Domain.ValueObjects.*;
 import Infra.Persistence.SQL.Models.MasterEntity;
 import Infra.Persistence.SQL.Models.UserEntity;
+import Infra.Security.Config.SecurityConfig;
 import Infra.Security.Service.CryptographyService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -12,12 +13,18 @@ import org.springframework.stereotype.Component;
 @Component
 public class Mapper {
 
+    private final SecurityConfig securityConfig;
+
+    public Mapper(SecurityConfig securityConfig) {
+        this.securityConfig = securityConfig;
+    }
+
     public UserEntity toDbModel(User user) {
 
         String cpfEncrypt = CryptographyService.encrypt(user.getCpf().cpf().toString());
         String nameEncrypt = CryptographyService.encrypt(user.getName().name().toString());
         String emailEncrypt = CryptographyService.encrypt(user.getEmail().email().toString());
-        String passwordEncrypt = new BCryptPasswordEncoder().encode(user.getPassword().password().toString());
+        String passwordEncrypt = securityConfig.passwordEncoder().encode(user.getPassword().password());
         String cepEncrypt = CryptographyService.encrypt(user.getAddress().cep().toString());
         String ruaEncrypt = CryptographyService.encrypt(user.getAddress().rua().toString());
         String bairroEncrypt = CryptographyService.encrypt(user.getAddress().bairro().toString());
@@ -55,7 +62,7 @@ public class Mapper {
         Cpf cpfDecrypt = new Cpf(CryptographyService.decrypt(entity.getCpf().toString()));
         Name nameDecrypt = new Name(CryptographyService.decrypt(entity.getName().toString()));
         Password passwordEncrypted = new Password(entity.getPassword());
-        Email emailDecrypt = new Email(CryptographyService.decrypt(entity.getEmail().toString()));
+        EmailVO emailDecrypt = new EmailVO(CryptographyService.decrypt(entity.getEmail().toString()));
         Cep cepDecrypt = new Cep(CryptographyService.decrypt(entity.getCep().toString()));
         String ruaDecrypt = CryptographyService.decrypt(entity.getRua().toString());
         String bairroDecrypt = CryptographyService.decrypt(entity.getBairro().toString());
@@ -115,7 +122,7 @@ public class Mapper {
         Cpf cpfDecrypt = new Cpf(CryptographyService.decrypt(masterEntity.getCpf().toString()));
         Name nameDecrypt = new Name(CryptographyService.decrypt(masterEntity.getName().toString()));
         Password passwordEncrypted = new Password(masterEntity.getPassword());
-        Email emailDecrypt = new Email(CryptographyService.decrypt(masterEntity.getEmail().toString()));
+        EmailVO emailDecrypt = new EmailVO(CryptographyService.decrypt(masterEntity.getEmail().toString()));
         PhoneNumber phoneNumberDecrypt = new PhoneNumber(CryptographyService.decrypt(masterEntity.getPhoneNumber().toString()));
 
         Master master = new Master(
