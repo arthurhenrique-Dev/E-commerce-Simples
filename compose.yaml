@@ -1,0 +1,64 @@
+services:
+  postgres:
+    image: postgres:17
+    container_name: tecbom-postgres
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres -d db_tecbom" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    environment:
+      - POSTGRES_DB=db_tecbom
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=senha
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - tecbom-network
+
+  mongodb:
+    image: mongo:latest
+    container_name: tecbom-mongodb
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: tecbom
+      MONGO_INITDB_ROOT_PASSWORD: senha
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - tecbom-network
+
+  app:
+    build: .
+    container_name: tecbom-app
+    ports:
+      - '8080:8080'
+    depends_on:
+      postgres:
+        condition: service_healthy
+      mongodb:
+        condition: service_started
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/db_tecbom
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=senha
+
+      - SPRING_FLYWAY_URL=jdbc:postgresql://postgres:5432/db_tecbom
+      - SPRING_FLYWAY_USER=postgres
+      - SPRING_FLYWAY_PASSWORD=senha
+
+      - SPRING_DATA_MONGODB_URI=mongodb://tecbom:senha@mongodb:27017/tecbom_mongo?authSource=admin
+    networks:
+      - tecbom-network
+
+volumes:
+  postgres_data:
+  mongo_data:
+
+networks:
+  tecbom-network:
+    driver: bridge
