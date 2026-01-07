@@ -15,7 +15,7 @@ public class ApplyDiscountUseCase implements ApplyDiscountPort {
     }
 
     @Override
-    public void applyDiscountPort(DTODiscount dtoDiscount) {
+    public void applyDiscount(DTODiscount dtoDiscount) {
         dtoDiscount.dtoPerProduct().forEach(dtoPerProduct -> {
             Product product = repository.checkProductById(dtoPerProduct.productId())
                     .orElseThrow(() -> new ProductNotFoundException());

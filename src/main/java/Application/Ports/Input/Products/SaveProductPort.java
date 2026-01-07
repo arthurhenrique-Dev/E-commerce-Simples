@@ -4,5 +4,5 @@ import Application.DTOs.Products.DTOSaveProduct;
 
 public interface SaveProductPort {
 
-    void saveProductPort(DTOSaveProduct dtoSaveProduct);
+    void saveProduct(DTOSaveProduct dtoSaveProduct);
 }

@@ -17,7 +17,7 @@ public class SaveProductUseCase implements SaveProductPort {
     }
 
     @Override
-    public void saveProductPort(DTOSaveProduct dtoSaveProduct) {
+    public void saveProduct(DTOSaveProduct dtoSaveProduct) {
         Product readyToSave = mapper.toRegister(dtoSaveProduct);
         repository.saveProduct(readyToSave);
     }

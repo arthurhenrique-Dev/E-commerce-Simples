@@ -3,6 +3,7 @@ package Infra.Security.Service;
 import Domain.Entities.Users.Master;
 import Domain.Entities.Users.Role;
 import Domain.Entities.Users.User;
+import Domain.Exceptions.Exceptions.ValidationFailedException;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
@@ -21,7 +22,17 @@ public class TokenService {
     @Value("Outro_valor_que_normalmente_não_pode_estar_aqui")
     private String secret;
 
-    public String generateToken(User user) {
+    public String generateToken(Object domainObject) {
+
+        if (domainObject instanceof User) {
+            return generateToken((User) domainObject);
+        } else if (domainObject instanceof Master) {
+            return generateToken((Master) domainObject);
+        } else {
+            throw new ValidationFailedException("Tipo de objeto não suportado para geração de token");
+        }
+    }
+    private String generateToken(User user) {
         return createJwt(
                 user.getCpf().toString(),
                 user.getName().toString(),
@@ -29,7 +40,7 @@ public class TokenService {
                 user.getRole().name()
         );
     }
-    public String generateToken(Master master){
+    private String generateToken(Master master){
         return createJwt(
                 master.getCpf().toString(),
                 master.getName().toString(),

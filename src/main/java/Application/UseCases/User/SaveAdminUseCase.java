@@ -25,9 +25,13 @@ public class SaveAdminUseCase implements SaveAdminPort {
     @Override
     public void saveAdmin(DTOSaveUser dtoSaveUser) {
         Optional<User> existingUser = repository.getUserByCpf(dtoSaveUser.cpf());
-        if (existingUser.isPresent()) throw new ValidationFailedException("Usuario existente");
-        User readyToSave = mapper.registerAdmin(dtoSaveUser);
-        repository.saveUser(readyToSave);
-        service.ValidateEmail(readyToSave.getEmail(), readyToSave.getEmailValidation().token());
+        if (existingUser.isPresent()) {
+            existingUser.get().HireUser();
+            repository.saveUser(existingUser.get());
+        } else {
+            User readyToSave = mapper.registerAdmin(dtoSaveUser);
+            repository.saveUser(readyToSave);
+            service.ValidateEmail(readyToSave.getEmail(), readyToSave.getEmailValidation().token());
+        }
     }
 }

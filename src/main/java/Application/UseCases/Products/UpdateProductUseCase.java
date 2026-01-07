@@ -15,7 +15,7 @@ public class UpdateProductUseCase implements UpdateProductPort {
     }
 
     @Override
-    public void updateProductPort(DTOUpdateProduct dtoUpdateProduct) {
+    public void updateProduct(DTOUpdateProduct dtoUpdateProduct) {
         Product updatingProduct = repository.checkProductById(dtoUpdateProduct.id())
                 .orElseThrow(() -> new ProductNotFoundException());
         updatingProduct.UpdateProduct(

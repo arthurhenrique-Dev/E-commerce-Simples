@@ -4,5 +4,5 @@ import Application.DTOs.Products.DTODiscount;
 
 public interface ApplyDiscountPort {
 
-    void applyDiscountPort(DTODiscount dtoDiscount);
+    void applyDiscount(DTODiscount dtoDiscount);
 }
