@@ -55,7 +55,7 @@ public class Product {
     private Integer totalTimesViewedInMonth(List<Model> models) {
         Integer totalTimesViewedInMonth = 0;
         for (Model model : models) {
-            totalTimesViewedInMonth += model.getTimesViewedInMonth().getTimes();
+            totalTimesViewedInMonth += model.getTimesViewedInMonth().stats();
         }
         return totalTimesViewedInMonth;
     }
@@ -63,7 +63,7 @@ public class Product {
     private Integer totalTimesPurchasedInMonth(List<Model> models) {
         Integer totalTimesPurchasedInMonth = 0;
         for (Model model : models) {
-            totalTimesPurchasedInMonth += model.getTimesPurchasedInMonth().getTimes();
+            totalTimesPurchasedInMonth += model.getTimesPurchasedInMonth().stats();
         }
         return totalTimesPurchasedInMonth;
     }
@@ -77,7 +77,7 @@ public class Product {
     }
 
     public void UpdateProduct(Integer idxModel, ValidText name, ValidText modelName, Price price, Quantity quantity, Photos photos, BigDecimal discountPercentage) {
-        if (!name.text().trim().isEmpty() || name != null) this.name = name;
+        if (name != null && !name.text().trim().isEmpty()) this.name = name;
         if (idxModel != null && idxModel > 0 && idxModel <= this.models.size())
             this.models.get(idxModel - 1).UpdateModel(modelName, price, quantity, photos, discountPercentage);
     }
@@ -185,19 +185,19 @@ public class Product {
         return timesPurchased;
     }
 
-    public Integer getTimesViewedInMonth() {
-        return timesViewedInMonth;
-    }
-
-    public Integer getTimesPurchasedInMonth() {
-        return timesPurchasedInMonth;
-    }
-
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
     public Status getStatus() {
         return status;
+    }
+
+    public Integer getTimesViewedInMonth() {
+        return totalTimesViewedInMonth(models);
+    }
+
+    public Integer getTimesPurchasedInMonth() {
+        return totalTimesPurchasedInMonth(models);
     }
 }

@@ -1,5 +1,6 @@
 package com.tecbom.e_commerce.Domain.Entities.Users;
 
+import com.tecbom.e_commerce.Domain.Exceptions.Exceptions.InvalidDataException;
 import com.tecbom.e_commerce.Domain.Exceptions.Exceptions.ValidationFailedException;
 import com.tecbom.e_commerce.Domain.ValueObjects.*;
 
@@ -35,12 +36,12 @@ public class Master {
 
     public void masterOff() {
         if (this.status == Status.ON) this.status = Status.OFF;
-        throw new ValidationFailedException("Usuario já está inativo");
+        else throw new InvalidDataException("Usuario já está inativo");
     }
 
     public void masterOn() {
         if (this.status == Status.OFF) this.status = Status.ON;
-        throw new ValidationFailedException("Usuario já está ativo");
+        else throw new InvalidDataException("Usuario já está ativo");
     }
 
     public Cpf getCpf() {

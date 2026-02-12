@@ -13,17 +13,12 @@ public class TimesInMonth {
         this.times = moments.size();
     }
 
-    public TimesInMonth stats() {
+    public Integer stats() {
         this.moments.removeIf(moment -> moment.isBefore(LocalDate.now().minusMonths(1)));
-        this.times = moments.size();
-        return this;
+        return this.times;
     }
-
-    public List<LocalDate> getMoments() {
-        return moments;
-    }
-
-    public Integer getTimes() {
-        return times;
+    public TimesInMonth() {
+        this.moments = new java.util.ArrayList<>();
+        this.times = 0;
     }
 }

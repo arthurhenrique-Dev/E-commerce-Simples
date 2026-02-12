@@ -1,5 +1,6 @@
 package com.tecbom.e_commerce.Domain.Entities.Products;
 
+import com.tecbom.e_commerce.Domain.Exceptions.Exceptions.InvalidDataException;
 import com.tecbom.e_commerce.Domain.ValueObjects.*;
 
 import java.math.BigDecimal;
@@ -27,36 +28,45 @@ public class Model {
     }
 
     public void UpdateModel(ValidText modelName, Price price, Quantity quantity, Photos photos, BigDecimal discountPercentage) {
-        if (modelName != null || modelName.text().trim().isEmpty()) this.name = modelName;
-        if (price != null && price.price().doubleValue() > 0) this.pricePerUnity = price;
+        if (modelName != null && !modelName.text().trim().isEmpty()) this.name = modelName;
+        if (discountPercentage != null) {
+            this.discountPercentage = discountPercentage;
+            this.pricePerUnity = checkDiscount(discountPercentage, pricePerUnity);
+        } else {
+            if (price != null && price.price().doubleValue() > 0) this.pricePerUnity = checkDiscount(this.discountPercentage, price);
+        }
         if (quantity != null && quantity.quantity() >= 0) {
             this.quantity = quantity;
-            this.checkAvailability();
+            this.availability = checkAvailability();
         }
         if (photos != null && !photos.photos().isEmpty()) this.photos = photos;
-        if (discountPercentage != null) {
-            this.pricePerUnity.discount(discountPercentage);
-            this.discountPercentage = discountPercentage;
-        }
+
     }
 
     public void PurchaseModel(Integer quantityPurchased) {
+        this.availability = checkAvailability();
+        if (this.availability == AvailabilityStatus.IN_STOCK) {
         if (quantityPurchased != null && quantityPurchased > 0 && quantityPurchased <= this.quantity.quantity()) {
-            this.quantity = new Quantity(this.quantity.quantity() - quantityPurchased);
-            this.availability = checkAvailability();
-            this.timesPurchasedInMonth.repeat();
-            this.timesPurchased += quantityPurchased;
-        }
+                for (int i = 0; i < quantityPurchased; i++) {
+                    this.timesPurchasedInMonth.repeat();
+                }
+                this.timesPurchased += quantityPurchased;
+                this.quantity = new Quantity(this.quantity.quantity() - quantityPurchased);
+                if (this.quantity.quantity() <= 0) this.availability = AvailabilityStatus.OUT_OF_STOCK;
+            } else throw new InvalidDataException("quantidade inválida para compra");
+        } else throw new InvalidDataException("item fora de estoque");
     }
 
     public Model(ValidText name, Price pricePerUnity, Quantity quantity, Photos photos, BigDecimal discountPercentage) {
         this.name = name;
-        this.pricePerUnity = checkDiscount(discountPercentage, pricePerUnity);
+        this.pricePerUnity = pricePerUnity.productPrice(checkDiscount(discountPercentage, pricePerUnity));
         this.quantity = quantity;
         this.photos = photos;
         this.availability = checkAvailability();
         this.timesViewed = 0;
         this.timesPurchased = 0;
+        this.timesViewedInMonth = new TimesInMonth();
+        this.timesPurchasedInMonth = new TimesInMonth();
         this.discountPercentage = discountPercentage;
     }
 

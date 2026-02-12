@@ -1,5 +1,6 @@
 package com.tecbom.e_commerce.Domain.Entities.Users;
 
+import com.tecbom.e_commerce.Domain.Exceptions.Exceptions.InvalidDataException;
 import com.tecbom.e_commerce.Domain.Exceptions.Exceptions.ValidationFailedException;
 import com.tecbom.e_commerce.Domain.ValueObjects.*;
 
@@ -65,12 +66,12 @@ public class User {
 
     public void Deactivate() {
         if (this.status == Status.ON) this.status = Status.OFF;
-        else throw new ValidationFailedException("Usuário não está ativo");
+        else throw new InvalidDataException("Usuário não está ativo");
     }
 
     public void Reactivate() {
         if (this.status == Status.OFF) this.status = Status.ON;
-        else throw new ValidationFailedException("Usuário não está desativado");
+        else throw new InvalidDataException("Usuário não está desativado");
     }
 
     public PasswordUpdater getPasswordUpdater() {
@@ -78,9 +79,9 @@ public class User {
     }
 
     public void UpdateUser(EmailVO email, PhoneNumber phoneNumber, Address address) {
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.address = address;
+        if (email != null && email != this.email) this.email = email;
+        if (phoneNumber != null && phoneNumber != this.phoneNumber) this.phoneNumber = phoneNumber;
+        if (address != null && address != this.address) this.address = address;
     }
 
     public Role getRole() {
@@ -89,7 +90,7 @@ public class User {
 
     public void HireUser() {
         if (this.role == Role.COMUM ) this.role = Role.ADMIN;
-        else throw new ValidationFailedException("Usuário já é contratado");
+        else throw new InvalidDataException("Usuário já é contratado");
     }
 
     public Password getPassword() {
@@ -98,7 +99,7 @@ public class User {
 
     public void DismissAdmin() {
         if (this.role == Role.ADMIN ) this.role = Role.COMUM;
-        else throw new ValidationFailedException("Usuário não é admin");
+        else throw new InvalidDataException("Usuário não é admin");
     }
 
     public Cpf getCpf() {

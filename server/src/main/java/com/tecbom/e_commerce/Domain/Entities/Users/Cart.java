@@ -38,12 +38,14 @@ public class Cart {
 
     public List<CartItem> addCartItem(CartItem item) {
         this.items.add(item);
+        this.price = CalculateTotalPrice(this.items);
         return this.items;
     }
 
     public List<CartItem> removeCartItem(Integer idxItem) {
         if (idxItem < 1 || idxItem > this.items.size()) throw new InvalidDataException("Erro");
         this.items.remove(this.items.get(idxItem - 1));
+        this.price = CalculateTotalPrice(this.items);
         return this.items;
     }
 
