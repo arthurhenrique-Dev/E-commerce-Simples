@@ -87,10 +87,6 @@ public class UserMapper {
         return master;
     }
 
-    public List<DTOReturnUser> toDTOReturnUser(List<User> users) {
-        return users.stream().map(this::toDTOReturnUser).toList();
-    }
-
     public DTOSearchUser dtoSearchUser(Cpf cpf, Name name, EmailVO email, PhoneNumber phoneNumber){
         return new DTOSearchUser(
                 cpf,

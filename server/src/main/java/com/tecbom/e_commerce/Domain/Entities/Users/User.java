@@ -64,11 +64,13 @@ public class User {
     }
 
     public void Deactivate() {
-        this.status = Status.OFF;
+        if (this.status == Status.ON) this.status = Status.OFF;
+        else throw new ValidationFailedException("Usuário não está ativo");
     }
 
     public void Reactivate() {
-        this.status = Status.ON;
+        if (this.status == Status.OFF) this.status = Status.ON;
+        else throw new ValidationFailedException("Usuário não está desativado");
     }
 
     public PasswordUpdater getPasswordUpdater() {
@@ -86,7 +88,8 @@ public class User {
     }
 
     public void HireUser() {
-        this.role = Role.ADMIN;
+        if (this.role == Role.COMUM ) this.role = Role.ADMIN;
+        else throw new ValidationFailedException("Usuário já é contratado");
     }
 
     public Password getPassword() {
@@ -94,15 +97,12 @@ public class User {
     }
 
     public void DismissAdmin() {
-        this.role = Role.COMUM;
+        if (this.role == Role.ADMIN ) this.role = Role.COMUM;
+        else throw new ValidationFailedException("Usuário não é admin");
     }
 
     public Cpf getCpf() {
         return cpf;
-    }
-
-    public Password getPlaintext() {
-        return password;
     }
 
     public Name getName() {

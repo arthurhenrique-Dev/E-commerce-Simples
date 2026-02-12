@@ -21,7 +21,7 @@ public class DissmissAdminUseCase implements DissmissAdminPort {
         User dissmissedAdmin = repository.getUserByCpf(cpf)
                 .orElseThrow(() -> new UserNotFoundException());
         if (dissmissedAdmin.getRole() == Role.COMUM) throw new InvalidDataException("Usuário não é admin");
-        dissmissedAdmin.HireUser();
+        dissmissedAdmin.DismissAdmin();
         repository.saveUser(dissmissedAdmin);
     }
 }

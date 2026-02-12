@@ -62,8 +62,12 @@ public class Configuration {
         return new ConfirmPasswordTokenUseCase(userRepository);
     }
     @Bean
-    DeleteMasterUseCase deleteMasterUseCase(MasterRepository masterRepository, UserMapper userMapper) {
-        return new DeleteMasterUseCase(masterRepository, userMapper);
+    DeleteMasterUseCase deleteMasterUseCase(MasterRepository masterRepository) {
+        return new DeleteMasterUseCase(masterRepository);
+    }
+    @Bean
+    MasterOnUseCase masterOnUseCase(MasterRepository masterRepository) {
+        return new MasterOnUseCase(masterRepository);
     }
     @Bean
     DeleteUserUseCase deleteUserUseCase(UserRepository userRepository) {
